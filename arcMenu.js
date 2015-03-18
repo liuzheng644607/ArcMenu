@@ -15,11 +15,20 @@
 		};
 		// 菜单项的父元素
 		// 起始角度,第一象限 逆时针计算
-		this.start_angel = opt.start_angel;
+		this.start_angel = opt.start_angel||0;
 		// 菜单的总角度 0到360
-		this.total_angel = opt.total_angel;
-		this.distance = opt.distance;
+		this.total_angel = opt.total_angel||90;
+		this.distance = opt.distance||120;
+		// 是否需要旋转菜单项
+		this.isRotate=opt.isRotate||false;
+		// 初始状态是否打开菜单
+		this.isActive=opt.isActive||false
+		// 菜单的开关状态
 		this.active=false;
+		// 打开菜单时候触发的函数
+		this.openEvt=opt.openEvt||function(){};
+		//关闭菜单时候触发的函数
+		this.closeEvt=opt.closeEvt||function(){};
 		var that = this;
 		// 所有的菜单项
 		this.menus = (function() {
@@ -43,7 +52,18 @@
 		// 初始化
 		this.init();
 	}
-
+	arcMenu.prototype.open=function(){
+		this.setPos(1);
+		if ((typeof this.openEvt)==="function") {
+			this.openEvt();
+		};
+	}
+	arcMenu.prototype.close=function(){
+		this.setPos(0);
+		if ((typeof this.closeEvt)==="function") {
+			this.closeEvt();
+		};
+	}
 	arcMenu.prototype.init = function() {
 		var that = this;
 
@@ -52,21 +72,29 @@
 			that.menu_angle[i] = (parseInt(that.start_angel) + that.angle * (i)) * Math.PI / 180;
 			that.x[i] = (that.distance * Math.sin(that.menu_angle[i]));
 			that.y[i] = (that.distance * Math.cos(that.menu_angle[i]));
-			ele.style.webkitTransform='rotate(' + (90 - that.menu_angle[i] * 180 / Math.PI) + 'deg)'
+			if (that.isRotate) {
+				ele.style.webkitTransform='rotate(' + (90 - that.menu_angle[i] * 180 / Math.PI) + 'deg)';
+			}
 		});
 
 		that.menu_btn.removeEventListener('click', clickHandler,false);
-	
+
 		var clickHandler = function(e) {
 			if(that.active){
-				that.setPos(0);
+				// 关闭
+				that.close();
 			}else{
-				that.setPos(1);
+				that.open();
 			}
 			that.active=!that.active;
 		};
 
 		that.menu_btn.addEventListener('click', clickHandler,false);
+
+		if (that.isActive) {
+			that.setPos(1);
+			that.active=!that.active;
+		};
 	};
 
 	// 设置位置
