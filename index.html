@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>demo</title>
+	<style type="text/css">
+	.container{
+		width: 500px;
+		height: 500px;
+		background-color: rgba(0,0,0,.4);
+		position: relative;
+	}
+	#toggleMenu{
+		position: absolute;
+		left: 30px;
+		bottom: 30px;
+		display: block;
+		width: 50px;
+		height: 50px;
+		background-color: #66afe9;
+		border-radius: 50%;
+		text-align: center;
+		color: #fff;
+	}
+	#menusBox{
+		position: absolute;
+		left: 50%;
+		bottom: 50%;
+		width: 40px;
+		height: 40px;
+	}
+	.menu{
+		position: absolute;
+		width: 40px;
+		height: 40px;
+		left: 0px;
+		top: 0px;
+		text-align: center;
+		line-height: 40px;
+		border-radius: 50%;
+		overflow: hidden;
+		background-color: #fff;
+		bottom: 0px;
+		transition:all .3s;
+		font-size: 20px;
+		color: #66afe9;
+	}
+	.menu:hover{
+		color: #fff;
+		background-color: #66afe9;
+	}
+	a{
+		text-decoration: none;
+	}
+	</style>
+	<script type="text/javascript" src="arcMenu.js"></script>
+</head>
+<body>
+
+<div class="container">
+	<a id="toggleMenu" href="#">click me</a>
+	<div id="menusBox">
+		<a class="menu" href="#">1</a>
+		<a class="menu" href="#">2</a>
+		<a class="menu" href="#">3</a>
+		<a class="menu" href="#">4</a>
+		<a class="menu" href="#">5</a>
+		<a class="menu" href="#">6</a>
+		<a class="menu" href="#">7</a>
+	</div>
+</div>
+<script type="text/javascript">
+	var menu=new arcMenu({
+		// 开关按钮
+		menu_btn:"toggleMenu",
+		// 按钮组父元素
+		menu_box:"menusBox",
+		// 起始角度 0-360
+		start_angel:45,
+		// 总角度0-360
+		total_angel:140,
+		// 展开距离
+		distance:110
+	});
+</script>
+</body>
+</html>
