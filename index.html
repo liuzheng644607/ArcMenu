@@ -22,11 +22,12 @@
 		border-radius: 50%;
 		text-align: center;
 		color: #fff;
+		z-index: 10;
 	}
 	.box{
 		position: absolute;
-		left: 35%;
-		bottom: 35%;
+		left: 35px;
+		bottom: 35px;
 		width: 40px;
 		height: 40px;
 	}
@@ -66,8 +67,6 @@
 		<a class="menu" href="#">3</a>
 		<a class="menu" href="#">4</a>
 		<a class="menu" href="#">5</a>
-		<a class="menu" href="#">6</a>
-		<a class="menu" href="#">7</a>
 	</div>
 </div>
 <div class="container">
@@ -86,13 +85,13 @@
 		// 按钮组父元素
 		menu_box:"menusBox",
 		// 起始角度 0-360
-		start_angel:45,
+		start_angel:-10,
 		// 总角度0-360
-		total_angel:140,
+		total_angel:110,
 		// 是否旋转菜单
 		isRotate:true,
 		// 默认是否打开
-		isActive:false,
+		isActive:true,
 		// 展开菜单时候
 		openEvt:function(){},
 		// 菜单关闭的时候

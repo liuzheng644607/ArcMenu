@@ -57,16 +57,16 @@
 		this.init();
 	}
 	arcMenu.prototype.open = function() {
-		this.setPos(1);
 		if ((typeof this.openEvt) === "function") {
 			this.openEvt();
 		};
+		this.setPos(1);
 	}
 	arcMenu.prototype.close = function() {
-		this.setPos(0);
 		if ((typeof this.closeEvt) === "function") {
 			this.closeEvt();
 		};
+		this.setPos(0);
 	}
 	arcMenu.prototype.init = function() {
 		var that = this;

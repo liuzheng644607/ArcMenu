@@ -8,6 +8,8 @@ ArcMenu
 
 **缓动效果由 菜单项的css transition产生,可随意**
 
+***暂只支持高级浏览器***
+
 ```javscript
 <script type="text/javascript" src="arcMenu.js"></script>
 <div class="container">
