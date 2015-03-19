@@ -60,13 +60,15 @@
 		if ((typeof this.openEvt) === "function") {
 			this.openEvt();
 		};
-		this.setPos(1);
+		this.setPos("open");
+		this.active=true;
 	}
 	arcMenu.prototype.close = function() {
 		if ((typeof this.closeEvt) === "function") {
 			this.closeEvt();
 		};
-		this.setPos(0);
+		this.setPos("close");
+		this.active = false;
 	}
 	arcMenu.prototype.init = function() {
 		var that = this;
@@ -90,30 +92,30 @@
 		that.menu_btn.removeEventListener('click', clickHandler, false);
 
 		var clickHandler = function(e) {
+			e.stopPropagation();
 			if (that.active) {
 				// 关闭
 				that.close();
 			} else {
 				that.open();
 			}
-			that.active = !that.active;
 		};
 
 		that.menu_btn.addEventListener('click', clickHandler, false);
 
 		if (that.isActive) {
-			that.setPos(1);
+			that.setPos("open");
 			that.active = !that.active;
 		};
 	};
 
 	// 设置位置
-	arcMenu.prototype.setPos = function(pos) {
+	arcMenu.prototype.setPos = function(status) {
 		var menus = this.menus;
 		var that = this;
 		forEach(menus, function(item, i) {
-			item.style.left = (pos === 0 ? 0 : that.y[i]) + "px";
-			item.style.top = (pos === 0 ? 0 : -that.x[i]) + "px";
+			item.style.left = (status === "close" ? 0 : that.y[i]) + "px";
+			item.style.top = (status === "close" ? 0 : -that.x[i]) + "px";
 		})
 	};
 	window.arcMenu = arcMenu;

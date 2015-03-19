@@ -59,7 +59,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container" id="con1">
 	<a class="toggle" id="toggleMenu" href="#">click me</a>
 	<div class="box" id="menusBox">
 		<a class="menu" href="#">1</a>
@@ -69,7 +69,7 @@
 		<a class="menu" href="#">5</a>
 	</div>
 </div>
-<div class="container">
+<div class="container" id="con2">
 	<a class="toggle" id="t1" href="#">click me</a>
 	<div class="box" id="m1">
 		<a class="menu" href="#">1</a>
@@ -100,7 +100,17 @@
 		distance:110
 	});
 
-	new arcMenu({
+	var container1=document.getElementById("con1");
+	var container2=document.getElementById("con2");
+	// 外部控制开关
+	container1.addEventListener("click",function(){
+		menu.close();
+	},false);
+	container2.addEventListener("click",function(){
+		menu2.close();
+	})
+
+	var menu2=new arcMenu({
 		// 开关按钮
 		menu_btn:"t1",
 		// 按钮组父元素
