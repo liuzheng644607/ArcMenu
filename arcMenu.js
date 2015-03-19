@@ -15,20 +15,22 @@
 		};
 		// 菜单项的父元素
 		// 起始角度,第一象限 逆时针计算
-		this.start_angel = opt.start_angel||0;
+		this.start_angel = opt.start_angel || 0;
 		// 菜单的总角度 0到360
-		this.total_angel = opt.total_angel||90;
-		this.distance = opt.distance||120;
+		this.total_angel = opt.total_angel || 90;
+		this.distance = opt.distance || 120;
 		// 是否需要旋转菜单项
-		this.isRotate=opt.isRotate||false;
+		this.isRotate = opt.isRotate || false;
 		// 初始状态是否打开菜单
-		this.isActive=opt.isActive||false
+		this.isActive = opt.isActive || false;
+		// 是否是直线菜单
+		this.isStraight = opt.isStraight || false;
 		// 菜单的开关状态
-		this.active=false;
+		this.active = false;
 		// 打开菜单时候触发的函数
-		this.openEvt=opt.openEvt||function(){};
+		this.openEvt = opt.openEvt || function() {};
 		//关闭菜单时候触发的函数
-		this.closeEvt=opt.closeEvt||function(){};
+		this.closeEvt = opt.closeEvt || function() {};
 		var that = this;
 		// 所有的菜单项
 		this.menus = (function() {
@@ -41,8 +43,10 @@
 			}
 			return eleNodes;
 		})();
+		// 如果是直线菜单的话  此变量用于保存每个菜单项到原点的距离
+		this.segment = [];
 		// 用于保存角度间隔
-		this.angle = parseInt(this.total_angel) / (this.menus.length - 1);
+		this.angle = parseInt(this.total_angel) / (this.menus.length - 1) || 0;
 		// 每个菜单的旋转角度
 		this.menu_angle = [];
 		// 每个菜单的left
@@ -52,55 +56,61 @@
 		// 初始化
 		this.init();
 	}
-	arcMenu.prototype.open=function(){
+	arcMenu.prototype.open = function() {
 		this.setPos(1);
-		if ((typeof this.openEvt)==="function") {
+		if ((typeof this.openEvt) === "function") {
 			this.openEvt();
 		};
 	}
-	arcMenu.prototype.close=function(){
+	arcMenu.prototype.close = function() {
 		this.setPos(0);
-		if ((typeof this.closeEvt)==="function") {
+		if ((typeof this.closeEvt) === "function") {
 			this.closeEvt();
 		};
 	}
 	arcMenu.prototype.init = function() {
 		var that = this;
 
-		// 计算旋转每个图标
-		forEach(that.menus,function(ele,i) {
+		// 计算旋转每个图标 以及 直线菜单 距离原点的长度
+		forEach(that.menus, function(ele, i) {
 			that.menu_angle[i] = (parseInt(that.start_angel) + that.angle * (i)) * Math.PI / 180;
 			that.x[i] = (that.distance * Math.sin(that.menu_angle[i]));
 			that.y[i] = (that.distance * Math.cos(that.menu_angle[i]));
+			// 直线菜单
+			if (that.isStraight) {
+				that.segment[i] = (that.distance / that.menus.length) * (i + 1);
+				that.x[i] = that.segment[i] * Math.sin((parseInt(that.start_angel) + that.total_angel) * Math.PI / 180);
+				that.y[i] = that.segment[i] * Math.cos((parseInt(that.start_angel) + that.total_angel) * Math.PI / 180);
+			};
 			if (that.isRotate) {
-				ele.style.webkitTransform='rotate(' + (90 - that.menu_angle[i] * 180 / Math.PI) + 'deg)';
+				ele.style.webkitTransform = 'rotate(' + (90 - that.menu_angle[i] * 180 / Math.PI) + 'deg)';
 			}
 		});
 
-		that.menu_btn.removeEventListener('click', clickHandler,false);
+		that.menu_btn.removeEventListener('click', clickHandler, false);
 
 		var clickHandler = function(e) {
-			if(that.active){
+			if (that.active) {
 				// 关闭
 				that.close();
-			}else{
+			} else {
 				that.open();
 			}
-			that.active=!that.active;
+			that.active = !that.active;
 		};
 
-		that.menu_btn.addEventListener('click', clickHandler,false);
+		that.menu_btn.addEventListener('click', clickHandler, false);
 
 		if (that.isActive) {
 			that.setPos(1);
-			that.active=!that.active;
+			that.active = !that.active;
 		};
 	};
 
 	// 设置位置
 	arcMenu.prototype.setPos = function(pos) {
 		var menus = this.menus;
-		var that=this;
+		var that = this;
 		forEach(menus, function(item, i) {
 			item.style.left = (pos === 0 ? 0 : that.y[i]) + "px";
 			item.style.top = (pos === 0 ? 0 : -that.x[i]) + "px";

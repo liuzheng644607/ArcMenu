@@ -4,12 +4,14 @@
 	<title>demo</title>
 	<style type="text/css">
 	.container{
-		width: 500px;
-		height: 500px;
+		width: 600px;
+		height: 600px;
+		margin-right: 10px;
 		background-color: rgba(0,0,0,.4);
 		position: relative;
+		float: left;
 	}
-	#toggleMenu{
+	.toggle{
 		position: absolute;
 		left: 30px;
 		bottom: 30px;
@@ -21,10 +23,10 @@
 		text-align: center;
 		color: #fff;
 	}
-	#menusBox{
+	.box{
 		position: absolute;
-		left: 50%;
-		bottom: 50%;
+		left: 35%;
+		bottom: 35%;
 		width: 40px;
 		height: 40px;
 	}
@@ -40,7 +42,7 @@
 		overflow: hidden;
 		background-color: #fff;
 		bottom: 0px;
-		transition:all .3s;
+		transition:all .25s ease;
 		font-size: 20px;
 		color: #66afe9;
 	}
@@ -57,8 +59,8 @@
 <body>
 
 <div class="container">
-	<a id="toggleMenu" href="#">click me</a>
-	<div id="menusBox">
+	<a class="toggle" id="toggleMenu" href="#">click me</a>
+	<div class="box" id="menusBox">
 		<a class="menu" href="#">1</a>
 		<a class="menu" href="#">2</a>
 		<a class="menu" href="#">3</a>
@@ -66,6 +68,15 @@
 		<a class="menu" href="#">5</a>
 		<a class="menu" href="#">6</a>
 		<a class="menu" href="#">7</a>
+	</div>
+</div>
+<div class="container">
+	<a class="toggle" id="t1" href="#">click me</a>
+	<div class="box" id="m1">
+		<a class="menu" href="#">1</a>
+		<a class="menu" href="#">2</a>
+		<a class="menu" href="#">3</a>
+		<a class="menu" href="#">4</a>
 	</div>
 </div>
 <script type="text/javascript">
@@ -88,6 +99,27 @@
 		openEvt:function(){},
 		// 展开距离
 		distance:110
+	});
+
+	new arcMenu({
+		// 开关按钮
+		menu_btn:"t1",
+		// 按钮组父元素
+		menu_box:"m1",
+		// 起始角度 0-360
+		start_angel:0,
+		// 总角度0-360
+		total_angel:90,
+		// 是否旋转菜单
+		isStraight:true,
+		// 默认是否打开
+		isActive:false,
+		// 展开菜单时候
+		openEvt:function(){},
+		// 菜单关闭的时候
+		openEvt:function(){},
+		// 展开距离
+		distance:250
 	});
 </script>
 </body>
