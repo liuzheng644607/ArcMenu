@@ -10,7 +10,7 @@ ArcMenu
 
 ***暂只支持高级浏览器***
 
-```html
+```javascript
 <script type="text/javascript" src="arcMenu.js"></script>
 <div class="container" id="con1">
 	<a class="toggle" id="toggleMenu" href="javascript:;">click me</a>
@@ -32,8 +32,7 @@ ArcMenu
 	</div>
 </div>
 ```
-<script type="text/javascript">
-```javascript
+
 	var menu=new arcMenu({
 		// 开关按钮
 		menu_btn:"toggleMenu",
@@ -85,6 +84,5 @@ ArcMenu
 		// 展开距离
 		distance:250
 	});
-```
-</script>
+
 
