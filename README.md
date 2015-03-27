@@ -4,6 +4,12 @@ ArcMenu
 创建弧形菜单
 
 ========
+#DEMO
+
+![demo](http://lyanblog-wordpress.stor.sinaapp.com/wordpress/20150327/QQ%E6%88%AA%E5%9B%BE20150327162134.jpg)
+[链接地址](http://liuzheng644607.github.io/arcMenu/)
+
+
 #usage
 
 **缓动效果由 菜单项的css transition产生,可随意**
