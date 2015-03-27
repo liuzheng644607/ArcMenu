@@ -10,43 +10,43 @@ ArcMenu
 
 ***暂只支持高级浏览器***
 
-```javscript
+```html
 <script type="text/javascript" src="arcMenu.js"></script>
-<div class="container">
-	<a class="toggle" id="toggleMenu" href="#">click me</a>
+<div class="container" id="con1">
+	<a class="toggle" id="toggleMenu" href="javascript:;">click me</a>
 	<div class="box" id="menusBox">
-		<a class="menu" href="#">1</a>
-		<a class="menu" href="#">2</a>
-		<a class="menu" href="#">3</a>
-		<a class="menu" href="#">4</a>
-		<a class="menu" href="#">5</a>
-		<a class="menu" href="#">6</a>
-		<a class="menu" href="#">7</a>
+		<a class="menu" href="javascript:;">1</a>
+		<a class="menu" href="javascript:;">2</a>
+		<a class="menu" href="javascript:;">3</a>
+		<a class="menu" href="javascript:;">4</a>
+		<a class="menu" href="javascript:;">5</a>
 	</div>
 </div>
-<div class="container">
-	<a class="toggle" id="t1" href="#">click me</a>
+<div class="container" id="con2">
+	<a class="toggle" id="t1" href="javascript:;">click me</a>
 	<div class="box" id="m1">
-		<a class="menu" href="#">1</a>
-		<a class="menu" href="#">2</a>
-		<a class="menu" href="#">3</a>
-		<a class="menu" href="#">4</a>
+		<a class="menu" href="javascript:;">1</a>
+		<a class="menu" href="javascript:;">2</a>
+		<a class="menu" href="javascript:;">3</a>
+		<a class="menu" href="javascript:;">4</a>
 	</div>
 </div>
+```
 <script type="text/javascript">
+```javascript
 	var menu=new arcMenu({
 		// 开关按钮
 		menu_btn:"toggleMenu",
 		// 按钮组父元素
 		menu_box:"menusBox",
 		// 起始角度 0-360
-		start_angel:45,
+		start_angel:-10,
 		// 总角度0-360
-		total_angel:140,
+		total_angel:110,
 		// 是否旋转菜单
 		isRotate:true,
 		// 默认是否打开
-		isActive:false,
+		isActive:true,
 		// 展开菜单时候
 		openEvt:function(){},
 		// 菜单关闭的时候
@@ -55,8 +55,17 @@ ArcMenu
 		distance:110
 	});
 
-	// 创建直线菜单
-	new arcMenu({
+	var container1=document.getElementById("con1");
+	var container2=document.getElementById("con2");
+	// 外部控制开关
+	container1.addEventListener("click",function(){
+		menu.close();
+	},false);
+	container2.addEventListener("click",function(){
+		menu2.close();
+	})
+
+	var menu2=new arcMenu({
 		// 开关按钮
 		menu_btn:"t1",
 		// 按钮组父元素
@@ -76,5 +85,6 @@ ArcMenu
 		// 展开距离
 		distance:250
 	});
-</script>
 ```
+</script>
+
