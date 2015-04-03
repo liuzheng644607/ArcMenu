@@ -100,9 +100,11 @@
 				that.open();
 			}
 		};
-
 		that.menu_btn.addEventListener('click', clickHandler, false);
-
+		// 移动端 推荐使用fastclick
+		if (window.FastClick) {
+			FastClick.attach(that.menu_btn);
+		}
 		if (that.isActive) {
 			that.setPos("open");
 			that.active = !that.active;
